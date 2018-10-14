@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="326e6511-4cb9-455b-abfd-6d9d92d495f4" name="Default Changelist" comment="commit README.md">
-      <change beforePath="$PROJECT_DIR$/SKPickle/sk_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/SKPickle/sk_model.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputData/sp1s_aa_test_result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputData/sp1s_aa_test_result.csv" afterDir="false" />
-    </list>
+    <list default="true" id="326e6511-4cb9-455b-abfd-6d9d92d495f4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +12,7 @@
     <session id="-1660481609">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="6" />
@@ -26,6 +23,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="csv" value="2" />
+          <entry key="gitignore" value="1" />
           <entry key="md" value="3" />
           <entry key="py" value="21" />
           <entry key="txt" value="1" />
@@ -35,23 +33,24 @@
         <counts>
           <entry key="CSV" value="2" />
           <entry key="Markdown" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="22" />
+          <entry key="gitignore" value="12" />
           <entry key="md" value="5" />
-          <entry key="py" value="22471" />
-          <entry key="txt" value="19" />
+          <entry key="py" value="22496" />
+          <entry key="txt" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="5" />
-          <entry key="PLAIN_TEXT" value="41" />
-          <entry key="Python" value="22471" />
+          <entry key="PLAIN_TEXT" value="143" />
+          <entry key="Python" value="22496" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -76,16 +75,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bbci2003_MLP_by_sklearn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
+            <state relative-caret-position="335">
+              <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
               <folding>
                 <element signature="e#25#47#0" expanded="true" />
-                <marker date="1539527873042" expanded="true" signature="976:2367" ph="..." />
-                <marker date="1539527873042" expanded="true" signature="1229:1799" ph="..." />
+                <marker date="1539528039878" expanded="true" signature="976:2367" ph="..." />
+                <marker date="1539528039878" expanded="true" signature="1229:1799" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -111,6 +119,7 @@
         <option value="$PROJECT_DIR$/bbci2003_CNN_by_sklearn.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/bbci2003_MLP_by_sklearn.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -304,7 +313,28 @@
       <option name="project" value="LOCAL" />
       <updated>1539525906407</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="train model and output again">
+      <created>1539527927076</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539527927076</updated>
+    </task>
+    <task id="LOCAL-00003" summary="train model and output again">
+      <created>1539528091659</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1539528091659</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add ignore path">
+      <created>1539528221404</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1539528221404</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -320,13 +350,14 @@
     <frame x="339" y="24" width="1423" height="993" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.59652174" visible="true" weight="0.23682311" />
-      <window_info id="Version Control" order="1" sideWeight="0.40347826" side_tool="true" visible="true" weight="0.23682311" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5967366" visible="true" weight="0.23682311" />
+      <window_info id="Version Control" order="1" sideWeight="0.4032634" side_tool="true" visible="true" weight="0.23682311" />
       <window_info id="Structure" order="2" sideWeight="0.38694638" side_tool="true" weight="0.23682311" />
       <window_info id="Favorites" order="3" sideWeight="0.38694638" side_tool="true" weight="0.23682311" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49963897" visible="true" weight="0.32983682" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49963897" weight="0.32983682" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,7 +385,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit README.md" />
+    <MESSAGE value="train model and output again" />
+    <MESSAGE value="change workspace" />
+    <MESSAGE value="add ignore path" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ignore path" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/Python36_64/Lib/site-packages/tensorflow/python/ops/parsing_ops.py">
@@ -482,13 +516,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bbci2003_MLP_by_sklearn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
+        <state relative-caret-position="335">
+          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
           <folding>
             <element signature="e#25#47#0" expanded="true" />
-            <marker date="1539527873042" expanded="true" signature="976:2367" ph="..." />
-            <marker date="1539527873042" expanded="true" signature="1229:1799" ph="..." />
+            <marker date="1539528039878" expanded="true" signature="976:2367" ph="..." />
+            <marker date="1539528039878" expanded="true" signature="1229:1799" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
