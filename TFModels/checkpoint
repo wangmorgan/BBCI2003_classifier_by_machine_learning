@@ -1,0 +1,2 @@
+model_checkpoint_path: "TF_CNN_Model.cpkt"
+all_model_checkpoint_paths: "TF_CNN_Model.cpkt"
