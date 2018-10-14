@@ -70,5 +70,6 @@ if __name__ == "__main__":
 
     # use nn model
     input_dir = os.path.join(FILE_DIR, "inputData", "sp1s_aa_test.csv")
-    output_dir = os.path.join(FILE_DIR, "outputData", "sp1s_aa_test_result.csv")
+    output_dir = os.path.join(FILE_DIR, "outputData",
+                              "sp1s_aa_test_result_by_sklearn.csv")
     do_output(pkl_dir, input_dir, output_dir)
