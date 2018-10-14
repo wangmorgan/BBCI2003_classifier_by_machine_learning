@@ -21,13 +21,11 @@ with open(train_data_csv_dir, "rt") as f:
         data_x[row] = val.split()[1:]
         data_y[row] = val.split()[0]
 
-# print(np.min(data_x), np.max(data_x))
-# data_x = data_x.reshape(316, 50, 28)
 data_y = data_y.astype(np.uint8)
 assert data_x.shape[0] == data_y.shape[0]
 
-x_train, x_test = data_x[:200], data_x[200:]
-y_train, y_test = data_y[:200], data_y[200:]
+x_train, x_test = data_x[:158], data_x[158:]
+y_train, y_test = data_y[:158], data_y[158:]
 
 
 # Create fitted model
@@ -38,6 +36,7 @@ def neural_network(X: np.ndarray, Y, learning_rate):
     return nn
 
 
+# Make output to csv file
 def do_output(model_dir, input_dir, output_dir):
     import pandas as pd
     with open(model_dir, "rb") as f:
@@ -64,12 +63,12 @@ if __name__ == "__main__":
     print("Score: {0:.4f}".format(score))
     print(y_pred)
 
-    # save nn
+    # save nn model
     pkl_dir = os.path.join(FILE_DIR, "SKPickle", "sk_model.pkl")
     with open(pkl_dir, "wb") as f:
         pickle.dump(nn, f)
 
-    # use nn
+    # use nn model
     input_dir = os.path.join(FILE_DIR, "inputData", "sp1s_aa_test.csv")
     output_dir = os.path.join(FILE_DIR, "outputData", "sp1s_aa_test_result.csv")
     do_output(pkl_dir, input_dir, output_dir)
