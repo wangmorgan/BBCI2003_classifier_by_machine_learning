@@ -41,7 +41,7 @@ def do_output(model_dir, input_dir, output_dir):
     import pandas as pd
     with open(model_dir, "rb") as f:
         nn: MLPClassifier = pickle.load(f)
-    test_data_x = np.ndarray(shape=(100, 1400)).astype(np.float64)
+    test_data_x = np.ndarray(shape=(100, 1400), dtype=np.float64)
     with open(input_dir, "r") as f:
         for i, val in enumerate(f):
             test_data_x[i] = val.split()
