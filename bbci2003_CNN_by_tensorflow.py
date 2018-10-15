@@ -9,7 +9,7 @@ if FILE_DIR not in sys.path:
     sys.path.append(FILE_DIR)
 
 # Parameters
-learning_rate = 1e-6
+learning_rate = 1e-3
 num_steps = 31600
 batch_size = 158
 display_step = 50
@@ -31,7 +31,7 @@ with open("./inputData/sp1s_aa_train.csv", "rt") as f:
         train_y[row] = val.split()[0]
 
 print(np.min(train_x), np.max(train_x))
-train_y = train_y.astype(np.uint8)
+train_y = train_y.astype(np.int32)
 assert train_x.shape[0] == train_y.shape[0]
 
 data_set = tf.data.Dataset.from_tensor_slices((train_x, train_y))
@@ -74,8 +74,10 @@ def conv_net(x, n_classes, dropout, reuse, is_training):
         # Flatten the data to a 1-D vector for the fully connected layer
         fc1 = tf.layers.flatten(conv2)
 
+        print(fc1.shape)
+
         # Fully connected layer
-        fc1 = tf.layers.dense(fc1, 1000)
+        fc1 = tf.layers.dense(fc1, 768, activation=tf.nn.relu)
         # Apply Dropout (if ts_training is False, dropout is not applied)
         fc1 = tf.layers.dropout(fc1, rate=dropout, training=is_training)
 
@@ -98,11 +100,12 @@ logits_train = conv_net(X, n_classes, dropout, reuse=False, is_training=True)
 logits_test = conv_net(X, n_classes, dropout, reuse=True, is_training=False)
 
 # Define loss and optimizer (with train logits, for dropout to take effect)
-loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(
-    logits=logits_train, labels=Y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
-# optimizer = tf.train.GradientDescentOptimizer(
-#     learning_rate=learning_rate)
+# loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(
+#     logits=logits_train, labels=Y))
+loss_op = tf.losses.sparse_softmax_cross_entropy(logits=logits_train, labels=Y)
+# optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+optimizer = tf.train.GradientDescentOptimizer(
+    learning_rate=learning_rate,)
 train_op = optimizer.minimize(loss_op)
 
 # Evaluate model (with test logits, for dropout to be disabled)
