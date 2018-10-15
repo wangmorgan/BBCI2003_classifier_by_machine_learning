@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+# standard package
 import os, sys, pickle
+# third-party package
 import numpy as np
 from sklearn.neural_network import MLPClassifier
+# module in this repo
+from np_train_data_100Hz import read_train_data
 
 FILE_DIR = os.path.abspath(os.path.dirname(__file__))
 if FILE_DIR not in sys.path:
@@ -12,14 +16,7 @@ if FILE_DIR not in sys.path:
 learning_rate = 1e-3
 
 # 316 epochs, 50 samples, 28 channels, 500ms per epoch
-data_x = np.ndarray(shape=(316, 1400), dtype=np.float32)
-data_y = np.ndarray((316,), dtype=np.float16)
-
-train_data_csv_dir = os.path.join(FILE_DIR, "inputData", "sp1s_aa_train.csv")
-with open(train_data_csv_dir, "rt") as f:
-    for row, val in enumerate(f):
-        data_x[row] = val.split()[1:]
-        data_y[row] = val.split()[0]
+data_x, data_y = read_train_data()
 
 data_y = data_y.astype(np.uint8)
 assert data_x.shape[0] == data_y.shape[0]

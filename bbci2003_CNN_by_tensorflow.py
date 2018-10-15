@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+# standard package
 import os, sys
+# third-party package
 import tensorflow as tf
-import numpy as np
+# module in this repo
+from np_train_data_100Hz import read_train_data
 
 FILE_DIR = os.path.abspath(os.path.dirname(__file__))
 if FILE_DIR not in sys.path:
@@ -12,7 +15,7 @@ if FILE_DIR not in sys.path:
 learning_rate = 1e-3
 num_steps = 31600
 batch_size = 158
-display_step = 50
+display_step = 100
 
 # Network Parameters
 n_input = 1400
@@ -22,19 +25,9 @@ dropout = 0.25
 sess = tf.Session()
 
 # 316 epochs, 50 samples, 28 channels, 500ms per epoch
-train_x = np.ndarray(shape=(316, 1400), dtype=np.float32)
-train_y = np.ndarray((316, 1), dtype=np.float16)
+data_x, data_y = read_train_data()
 
-with open("./inputData/sp1s_aa_train.csv", "rt") as f:
-    for row, val in enumerate(f):
-        train_x[row] = val.split()[1:]
-        train_y[row] = val.split()[0]
-
-print(np.min(train_x), np.max(train_x))
-train_y = train_y.astype(np.int32)
-assert train_x.shape[0] == train_y.shape[0]
-
-data_set = tf.data.Dataset.from_tensor_slices((train_x, train_y))
+data_set = tf.data.Dataset.from_tensor_slices((data_x, data_y))
 data_set = data_set.repeat()
 data_set = data_set.batch(batch_size)
 data_set = data_set.prefetch(batch_size)
