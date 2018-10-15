@@ -24,14 +24,17 @@ with open(train_data_csv_dir, "rt") as f:
 data_y = data_y.astype(np.uint8)
 assert data_x.shape[0] == data_y.shape[0]
 
-x_train, x_test = data_x[:158], data_x[158:]
-y_train, y_test = data_y[:158], data_y[158:]
+x_train, x_test = data_x[:256], data_x[256:]
+y_train, y_test = data_y[:256], data_y[256:]
 
 
 # Create fitted model
 def neural_network(X: np.ndarray, Y, learning_rate):
-    nn = MLPClassifier(hidden_layer_sizes=(100,), activation="identity",
-                       solver="lbfgs", learning_rate_init=learning_rate,)
+    nn = MLPClassifier(hidden_layer_sizes=(128, 64), activation="logistic",
+                       solver="sgd", learning_rate_init=learning_rate,
+                       learning_rate="adaptive", verbose=True,
+                       tol=1e-6, early_stopping=False, max_iter=15000,
+                       shuffle=True)
     nn.fit(X, Y)
     return nn
 

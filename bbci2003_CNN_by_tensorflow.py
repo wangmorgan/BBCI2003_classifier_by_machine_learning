@@ -9,15 +9,15 @@ if FILE_DIR not in sys.path:
     sys.path.append(FILE_DIR)
 
 # Parameters
-learning_rate = 0.0001
-num_steps = 15800
+learning_rate = 1e-6
+num_steps = 31600
 batch_size = 158
-display_step = 100
+display_step = 50
 
 # Network Parameters
 n_input = 1400
 n_classes = 2
-dropout = 0.5
+dropout = 0.25
 
 sess = tf.Session()
 
@@ -52,32 +52,30 @@ def conv_net(x, n_classes, dropout, reuse, is_training):
     with tf.variable_scope('ConvNet', reuse=reuse):
         # ndarray input is a 1-D vector of 1400 features (50samples * 28channels)
         # reshape to match format [Samples x Channel]
-        # Tensor input become 4-D: [Batch Size, Samples, DeviceChannel, Channel]
-        x = tf.reshape(x, shape=[-1, 50, 28, 1])
+        # Tensor input become 3-D: [Batch Size, Samples, Channel]
+        x = tf.reshape(x, shape=[-1, 50, 28])
 
-        x = tf.fake_quant_with_min_max_args(x, -255., 255.)
+        x = tf.fake_quant_with_min_max_args(x, -255, 255, num_bits=16)
 
         # Convolution Layer with 32 filters and a kernel size of 5
-        conv1 = tf.layers.conv2d(x, 32, 5, padding='VALID',
-                                 activation=tf.nn.relu)
+        conv1 = tf.layers.conv1d(x, 32, 5, padding='SAME',
+                                 activation=tf.nn.sigmoid,)
 
-        conv1 = tf.nn.local_response_normalization(conv1)
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
+        conv1 = tf.layers.max_pooling1d(conv1, 2, 2)
 
         # Convolution Layer with 64 filters and a kernel size of 3
-        conv2 = tf.layers.conv2d(conv1, 32, 3, padding='VALID',
-                                 activation=tf.nn.relu)
+        conv2 = tf.layers.conv1d(conv1, 64, 2, padding='SAME',
+                                 activation=tf.nn.sigmoid,)
 
-        conv2 = tf.nn.local_response_normalization(conv2)
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        conv2 = tf.layers.max_pooling2d(conv2, 2, 2)
+        conv2 = tf.layers.max_pooling1d(conv2, 2, 2)
 
         # Flatten the data to a 1-D vector for the fully connected layer
         fc1 = tf.layers.flatten(conv2)
 
         # Fully connected layer
-        fc1 = tf.layers.dense(fc1, 200)
+        fc1 = tf.layers.dense(fc1, 1000)
         # Apply Dropout (if ts_training is False, dropout is not applied)
         fc1 = tf.layers.dropout(fc1, rate=dropout, training=is_training)
 
@@ -89,8 +87,6 @@ def conv_net(x, n_classes, dropout, reuse, is_training):
 
     return out
 
-
-# I haven't seen code below
 
 # Because Dropout have different behavior at training and prediction time, we
 # need to create 2 distinct computation graphs that share the same weights.
@@ -105,6 +101,8 @@ logits_test = conv_net(X, n_classes, dropout, reuse=True, is_training=False)
 loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(
     logits=logits_train, labels=Y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+# optimizer = tf.train.GradientDescentOptimizer(
+#     learning_rate=learning_rate)
 train_op = optimizer.minimize(loss_op)
 
 # Evaluate model (with test logits, for dropout to be disabled)
@@ -113,7 +111,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 # Saver
 saver = tf.train.Saver()
-save_dir = "TFModels/"
+save_dir = os.path.join(FILE_DIR, "TFModels", "TF_CNN_Model.cpkt")
 
 # Initialize the variables (i.e. assign their default value)
 init = tf.global_variables_initializer()
@@ -132,11 +130,11 @@ for step in range(1, num_steps + 1):
         # (note that this consume a new batch of data)
         loss, acc = sess.run([loss_op, accuracy])
         print("Step " + str(step) + ", Minibatch Loss= " +
-              "{:.4f}".format(loss) + ", Training Accuracy= " +
-              "{:.3f}".format(acc))
+              "{:.8f}".format(loss) + ", Training Accuracy= " +
+              "{:.4f}".format(acc))
 
 print("Optimization Finished!")
 
-saver.save(sess, save_dir + "TF_CNN_Model.cpkt")
+saver.save(sess, save_dir)
 
 sess.close()
