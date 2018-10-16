@@ -16,4 +16,7 @@ def read_train_data():
 
     data_y = data_y.astype(np.int32)
     assert data_x.shape[0] == data_y.shape[0]
-    return data_x, data_y
+    x_min = data_x.min()
+    x_max = data_x.max()
+
+    return data_x, data_y, x_min, x_max

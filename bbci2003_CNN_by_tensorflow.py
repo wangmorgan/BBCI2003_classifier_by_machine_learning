@@ -12,13 +12,15 @@ FILE_DIR = os.path.abspath(os.path.dirname(__file__))
 if FILE_DIR not in sys.path:
     sys.path.append(FILE_DIR)
 
-tf.logging.set_verbosity(tf.logging.INFO)
+
+# initialize parameters
+# x_min, x_max = 0., 0.
 
 # Parameters
 learning_rate = 1e-3
 
 
-global_steps = 2000
+global_steps = 10000
 # batch_size = 158
 # display_step = 100
 
@@ -31,6 +33,7 @@ global_steps = 2000
 # Application logic below
 def cnn_model_fn(features, labels, mode):
     """Model function for CNN."""
+
     # Input Layer
     input_layer = tf.reshape(features["x"], [-1, 50, 28, 1])
 
@@ -93,10 +96,10 @@ def cnn_model_fn(features, labels, mode):
 def main(unused_argv):
     # Load training and eval data
     # 316 epochs, 50 samples, 28 channels, 500ms per epoch
-    data_x, data_y = read_train_data()
-    train_data = np.asarray(data_x[:200], dtype=np.float64)
+    data_x, data_y, x_min, x_max = read_train_data()
+    train_data = np.asarray(data_x[:200], dtype=np.float32)
     train_labels = np.asarray(data_y[:200], dtype=np.int32)
-    eval_data = np.asarray(data_x[200:], dtype=np.float64)
+    eval_data = np.asarray(data_x[200:], dtype=np.float32)
     eval_labels = np.asarray(data_y[200:], dtype=np.int32)
 
     # Create the Estimator
@@ -132,4 +135,5 @@ def main(unused_argv):
 
 
 if __name__ == "__main__":
+    tf.logging.set_verbosity(tf.logging.INFO)
     tf.app.run()
