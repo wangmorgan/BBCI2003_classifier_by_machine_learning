@@ -14,7 +14,6 @@ def read_train_data():
             data_x[row] = val.split()[1:]
             data_y[row] = val.split()[0]
 
-    print(np.min(data_x), np.max(data_x))
     data_y = data_y.astype(np.int32)
     assert data_x.shape[0] == data_y.shape[0]
     return data_x, data_y
